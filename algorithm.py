@@ -42,12 +42,12 @@ def QR(n, a, b, TOL, m):
 
     while k <= m:
         # Se verifica si los extremos de la diagonal contienen eigenvalores
-        if(b[n] <= TOL):
+        if abs(b[n]) <= TOL:
             eigenvalue = a[n] + shift
             eigenvalues.append(eigenvalue)
             n = n - 1
         
-        if(b[2] <= TOL):
+        if abs(b[2]) <= TOL:
             eigenvalue = a[1] + shift
             eigenvalues.append(eigenvalue)
             n = n - 1
@@ -65,8 +65,8 @@ def QR(n, a, b, TOL, m):
             eigenvalues.append(eigenvalue)
             return eigenvalues
         
-        for j in range (3 , n):
-            if( b[j] <= TOL):
+        for j in range (3, n-1):
+            if abs(b[j]) <= TOL:
                 print('Dividido en ', a[1:j - 1], b[2: j -1])
                 print('y ', a[j: n], b[j + 1 : n])
                 print('Cambio: ', shift)
@@ -84,9 +84,7 @@ def QR(n, a, b, TOL, m):
 
         if(n == 2):
             eigenvalue = mu1 + shift
-            eigenvalues.append(eigenvalue)
             eigenvalue = mu2 + shift
-            eigenvalues.append(eigenvalue)
 
         if abs(mu1 - a[n]) < abs(mu2 - a[n]):
             sigma[0] = mu1-a[n]
@@ -128,8 +126,7 @@ def QR(n, a, b, TOL, m):
 
         k = k + 1
 
-    print('Se ha superado el numero maximo de iteraciones')
+    print('Se ha superado el numero máximo de iteraciones')
     return eigenvalues
 
-eigenvalues = QR(3, [3, 3, 3], [1, 1], 0.001, 100)
-print(eigenvalues)
+print('Eigenvalores de la matriz:\n' + str(QR(3, [3, 3, 3], [1, 1], 0.0001, 100)))
